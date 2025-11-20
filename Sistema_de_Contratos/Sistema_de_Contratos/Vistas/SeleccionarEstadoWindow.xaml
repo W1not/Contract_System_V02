@@ -1,0 +1,21 @@
+﻿<Window x:Class="Sistema_de_Contratos.Vistas.SeleccionarEstadoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Seleccionar Estado" Height="180" Width="300" WindowStartupLocation="CenterOwner">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Seleccione el estado:" Margin="0 0 0 5"/>
+            <ComboBox x:Name="cbEstados" Width="250" Height="30" Margin="0 0 0 10">
+                <ComboBoxItem Content="Puebla"/>
+                <ComboBoxItem Content="Tabasco"/>
+
+            </ComboBox>
+            <Button Content="Aceptar" Width="80" Height="30" HorizontalAlignment="Right" Click="Aceptar_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

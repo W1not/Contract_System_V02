@@ -1,0 +1,217 @@
+﻿<Window x:Class="Sistema_de_Contratos.Vistas.DetalleTrabajador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sistema_de_Contratos.Vistas"
+        mc:Ignorable="d"
+        Title="Detalles del Trabajador" 
+        Height="600" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Estilos consistentes -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="5 5 5 2"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#00AFB9"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="2">
+                            <ContentPresenter x:Name="content"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0098B0"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#0081A7"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#00AFB9"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="Auto"/>
+            <!-- Info básica -->
+            <RowDefinition Height="*"/>
+            <!-- Historial -->
+            <RowDefinition Height="Auto"/>
+            <!-- Botones -->
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado con nombre del trabajador -->
+        <Border Grid.Row="0" Background="#00AFB9" CornerRadius="4" Padding="15" Margin="0 0 0 15">
+            <TextBlock x:Name="txtTituloTrabajador" 
+                       Text="Detalles del Trabajador"
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Bold"/>
+        </Border>
+
+        <!-- Información básica -->
+        <GroupBox Grid.Row="1" Header="Información Personal" BorderBrush="#E0E0E0">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Nombre completo:" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock x:Name="txtNombre" Grid.Row="0" Grid.Column="1" FontWeight="Bold"/>
+
+                <Label Content="CURP:" Grid.Row="0" Grid.Column="2"/>
+                <TextBlock x:Name="txtCURP" Grid.Row="0" Grid.Column="3" FontWeight="Bold"/>
+
+                <Label Content="Puesto actual:" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock x:Name="txtPuesto" Grid.Row="1" Grid.Column="1" FontWeight="Bold"/>
+
+                <Label Content="Estado:" Grid.Row="1" Grid.Column="2"/>
+                <TextBlock x:Name="txtEstado" Grid.Row="1" Grid.Column="3" FontWeight="Bold"/>
+
+                <Label Content="Fecha de ingreso:" Grid.Row="2" Grid.Column="0"/>
+                <TextBlock x:Name="txtFechaInicio" Grid.Row="2" Grid.Column="1" FontWeight="Bold"/>
+
+                <Label Content="Contratos renovados:" Grid.Row="2" Grid.Column="2"/>
+                <TextBlock x:Name="txtRenovaciones" Grid.Row="2" Grid.Column="3" FontWeight="Bold"/>
+
+                <Label Content="Motivo de baja: " Grid.Row="3" Grid.Column="0 "/>
+                <TextBlock x:Name="txtMotivoBaja" Grid.Row="3" Grid.Column="1" FontWeight="Bold" Visibility="Collapsed" TextWrapping="Wrap" Foreground="Red"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Historial de contratos -->
+        <GroupBox Grid.Row="2" Header="Historial de Contratos" Margin="0 15 0 15" BorderBrush="#E0E0E0">
+            <DataGrid x:Name="dgContratos" ScrollViewer.CanContentScroll="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tipo" Binding="{Binding TipoContrato}" Width="1*"/>
+                    <DataGridTextColumn Header="Inicio" Binding="{Binding FechaInicio, StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                    <DataGridTextColumn Header="Fin" Binding="{Binding FechaFin, StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                    <DataGridTextColumn Header="Duración" Binding="{Binding Duracion}" Width="0.8*"/>
+                    <DataGridTextColumn Header="Salario" Binding="{Binding Salario, StringFormat='C'}" Width="1.2*"/>
+                    <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="1*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Estado}" Value="Vigente">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Estado}" Value="Baja">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Botones de acción -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Editar" Click="Button_ClickEditar"/>
+            <Button Content="Nuevo Contrato" Click="Button_ClickContrato"/>
+            <Button Content="Cerrar" Click="Button_ClickCerrar" 
+                    Background="Transparent" 
+                    Foreground="#00AFB9"
+                    BorderBrush="#00AFB9"
+                    BorderThickness="1"
+                    Padding="10,5"
+                    MinWidth="100"
+                    Margin="5"
+                    Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                                        <ContentPresenter x:Name="content"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <!-- Efecto hover -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#F7F3E9"/>
+                                            <Setter TargetName="content" Property="TextBlock.Foreground" Value="#0098B0"/>
+                                        </Trigger>
+
+                                        <!-- Efecto al presionar -->
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#0081A7"/>
+                                            <Setter TargetName="content" Property="TextBlock.Foreground" Value="#333333"/>
+                                            <Setter TargetName="border" Property="BorderBrush" Value="#0081A7"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

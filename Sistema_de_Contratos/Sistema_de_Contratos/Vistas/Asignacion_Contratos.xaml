@@ -1,0 +1,136 @@
+﻿<Window x:Class="Sistema_de_Contratos.Asignacion_Contratos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sistema_de_Contratos"
+        mc:Ignorable="d"
+        Title="Asignación de Contrato" 
+        Height="500" 
+        Width="650"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 5"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <!-- Cambiado a coma como separador -->
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#0081A7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <!-- Template mínimo esencial -->
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                Background="{TemplateBinding Background}"
+                CornerRadius="2">
+                            <ContentPresenter x:Name="content"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FED9B7"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                    <!-- Texto oscuro para mejor contraste -->
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#0081A7"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <!-- Texto blanco al presionar -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#00AFB9" CornerRadius="4" Padding="15" Margin="0 0 0 20">
+            <TextBlock x:Name="txtNombreTrabajador" 
+                       Text="Asignando contrato a: [Nombre del Trabajador]"
+                       Foreground="White"
+                       FontSize="16"
+                       FontWeight="Bold"/>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Fecha de inicio:" Grid.Row="0" Grid.Column="0"/>
+            <DatePicker Name="dpFechaInicioContrato" Grid.Row="0" Grid.Column="1" Margin="0 0 0 15"/>
+
+            <Label Content="Puesto:" Grid.Row="1" Grid.Column="0"/>
+            <ComboBox x:Name="comboCargos" Grid.Row="1" Grid.Column="1" Margin="0 0 0 15"/>
+
+            <Label Content="Sueldo Quincenal:" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="txtSueldo" Grid.Row="2" Grid.Column="1" Margin="0 0 0 15"
+                     PreviewTextInput="txtSueldo_PreviewTextInput" 
+                     LostFocus="txtSueldo_LostFocus" 
+                     MaxLength="10"/>
+
+            <Label Content="Fecha de fin:" Grid.Row="3" Grid.Column="0"/>
+            <DatePicker Name="dpFechaFin" Grid.Row="3" Grid.Column="1" Margin="0 0 0 15"/>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0">
+            <Button Content="Omitir Registro" Click="Omitir_Registro_Click"
+                    Background="Transparent" 
+                    Foreground="#00AFB9"
+                    BorderBrush="#00AFB9"
+                    BorderThickness="1"/>
+            <Button Background="#00AFB9" Content="Crear Contrato" Click="BtnAsignar_Contrato_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
