@@ -4,7 +4,7 @@ A contract management system built with C# and Microsoft SQL Server to manage th
 ## 💻 Technologies
 ![.NET Badge](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff&style=flat-square)
 
-## Requeriments
+## 📦 Development
 
 Version - NET 8
 
